@@ -135,5 +135,17 @@ public:
 
 int main() 
 {
-    
+    serial port;
+    if (!port.open_port("/dev/serial0"))
+    {   
+        std::cout << "Could not open the serial port" << std::endl;
+        return 1;
+    }
+
+    while (true)
+    {
+        std::string str;
+        std::cin >> str;
+        port.send_date(str);
+    }
 };
