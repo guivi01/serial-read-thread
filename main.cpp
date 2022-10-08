@@ -47,8 +47,7 @@ private:
                 memset(&read_buf, '\0', sizeof(read_buf));
                 int bytes_received = read(m_fdPort, &read_buf, sizeof(read_buf));
                 if (bytes_received > 0) {
-                    printf("Received (%d bytes): %.*s",
-                        bytes_received, bytes_received, read);
+                    std::cout << read_buf;
                 }                
             }
         }
@@ -141,11 +140,12 @@ int main()
         std::cout << "Could not open the serial port" << std::endl;
         return 1;
     }
-
+    port.start_listening();
     while (true)
     {
         std::string str;
         std::cin >> str;
+        str += "\r\n";
         port.send_date(str);
     }
 };
